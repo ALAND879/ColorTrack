@@ -3,7 +3,6 @@ import random
 import cv2
 import numpy as np
 from src.ColorSequence import ColorSequence
-from src.CloseHand import CameraManager
 from src.ScoreTable import ScoreTable
 
 # Inicialización de Pygame
@@ -21,16 +20,6 @@ font = pygame.font.SysFont('Arial', 24)
 colors = ['red', 'green', 'blue', 'yellow', 'pink', 'gray']
 for i, color in enumerate(colors):
 	colors[i] = pygame.image.load(f'images/Colors/{color}.png')  #colors[i] = pygame.transform.scale(colors[i], (colors[i].get_width() // 2, colors[i].get_height() // 2))
-
-"""# Prueba de puntajes
-score_table = ScoreTable()
-score_table.add_score('Player1', 100)
-score_table.add_score('Player2', 200)
-score_table.add_score('Player3', 150)
-score_table.add_score('Player4', 300)
-score_table.add_score('Player5', 250)
-"""
-
 
 # Función para dibujar los botones con sus etiquetas
 def menu_buttons():
@@ -101,44 +90,3 @@ def show_balloons_to_guess(screen, color_sequence):
 
 
 
-# Función principal del juego
-def game_loop():
-	color_sequence = ColorSequence(9)
-	show_sequence_once = True
-	running = True
-	while running:
-		screen.fill((255, 255, 255))  # Rellenar la pantalla con blanco
-
-		#Prueba de botones
-		#menu_buttons()
-
-		#Prueba de puntajes
-		#draw_score_table(screen, score_table)
-
-		#Prueba de secuencia de colores
-		"""
-		if show_sequence_once:
-			show_sequence(screen, color_sequence)
-			again_font = pygame.font.SysFont('Arial', 36)
-			again_text = again_font.render('Again', True, (0, 0, 0))
-			screen.blit(again_text, (screen_width // 2 - again_text.get_width() // 2,
-	                         screen_height // 2 + 100))
-			pygame.display.flip()
-			show_sequence(screen, color_sequence)
-			show_sequence_once = False
-		"""
-
-		# Prueba de globos a adivinar
-		#	show_balloons_to_guess(screen, color_sequence)
-
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				running = False
-
-		pygame.display.flip()  # Actualizar la pantalla
-
-	pygame.quit()
-
-
-# Iniciar el juego
-game_loop()
