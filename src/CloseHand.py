@@ -22,9 +22,6 @@ class CameraManager:
 			if not ret:
 				continue
 
-			# Flip frame horizontally for a mirror effect
-			frame = cv2.flip(frame, 1)
-
 			# Process frame with hand detector
 			hands, processed_frame = self.detector.findHands(frame)
 

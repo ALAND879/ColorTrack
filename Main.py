@@ -235,8 +235,10 @@ def check_hand_selection(color_option_rects):
             if camera_manager.current_frame is not None:
                 frame_h, frame_w = camera_manager.current_frame.shape[:2]
                 
-                # No need to flip x coordinate again since it's already flipped in CameraManager
-                screen_x = int(x * screen_width / frame_w)
+                # Flip coordinates
+                
+                # Flip x coordinate horizontally and scale coordinates
+                screen_x = int((frame_w - x) * screen_width / frame_w)  # Flip x coordinate
                 screen_y = int(y * screen_height / frame_h)
                 
                 # Debug visualization - draw a marker at detected position
