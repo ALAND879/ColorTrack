@@ -26,6 +26,10 @@ for color in colors:
     img = pygame.image.load(f'images/Colors/{color}.png')
     color_images.append(img)
 
+# Import logos
+encuentro_logo = pygame.image.load('images/Logos/Logo_Encuentro_2025.png')
+LUMACAD_logo = pygame.image.load('images/Logos/LumAcad_Logo.png')
+
 # Game states
 STATE_MENU = 0
 STATE_PLAY = 1
@@ -49,17 +53,25 @@ score_table = ScoreTable()
 camera_manager = None
 
 def menu_buttons():
-    """Draw menu buttons"""
+    """Draw menu buttons and logos"""
+    # Draw play button
     play_button = pygame.image.load('images/Buttons/play.png')
     play_button = pygame.transform.scale(play_button, (play_button.get_width() * 2, play_button.get_height() * 2))
     play_rect = play_button.get_rect(center=(screen_width // 4, screen_height - play_button.get_height() // 2 - 50))
     screen.blit(play_button, play_rect)
-    
+
+    # Draw score button
     score_button = pygame.image.load('images/Buttons/score.png')
     score_button = pygame.transform.scale(score_button, (score_button.get_width() * 2, score_button.get_height() * 2))
     score_rect = score_button.get_rect(center=(3 * screen_width // 4, screen_height - score_button.get_height() // 2 - 50))
     screen.blit(score_button, score_rect)
-    
+
+    # Scale and draw logos
+    #encuentro_logo_scaled = pygame.transform.scale(encuentro_logo, (encuentro_logo.get_width() // 2, encuentro_logo.get_height() // 2))
+    #LUMACAD_logo_scaled = pygame.transform.scale(LUMACAD_logo, (LUMACAD_logo.get_width() // 2, LUMACAD_logo.get_height() // 2))
+    screen.blit(encuentro_logo, (20, 20))  # Top left corner
+    screen.blit(LUMACAD_logo, (screen_width - LUMACAD_logo.get_width() - 20, 20))  # Top right corner
+
     return play_rect, score_rect
 
 def draw_score_table(screen, score_table):
@@ -235,8 +247,10 @@ def check_hand_selection(color_option_rects):
             if camera_manager.current_frame is not None:
                 frame_h, frame_w = camera_manager.current_frame.shape[:2]
                 
-                # No need to flip x coordinate again since it's already flipped in CameraManager
-                screen_x = int(x * screen_width / frame_w)
+                # Flip coordinates
+                
+                # Flip x coordinate horizontally and scale coordinates
+                screen_x = int((frame_w - x) * screen_width / frame_w)  # Flip x coordinate
                 screen_y = int(y * screen_height / frame_h)
                 
                 # Debug visualization - draw a marker at detected position
@@ -250,7 +264,7 @@ def check_hand_selection(color_option_rects):
                         # Visual feedback
                         pygame.draw.rect(screen, (0, 255, 0), rect, 4)
                         pygame.display.update()
-                        pygame.time.delay(300)  # Briefly show selection
+                        pygame.time.delay(2000)  # Briefly show selection
                         return color
     
     return None
